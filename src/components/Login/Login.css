@@ -1,75 +1,46 @@
+/* Base styles */
 .wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100vh;
-    background-color: #000929 !important;
-    border-radius: 10px;
+    background-color: #000929;
     color: #fff;
+    padding: 20px; /* Added padding for better spacing on small screens */
 }
 
 .login-form {
-    width: 450px;
+    width: 100%;
+    max-width: 450px; /* Ensure it doesn’t exceed 450px on larger screens */
     background: #151451;
     border-radius: 40px;
     box-shadow: 2px 2px #27ada6;
-}
-
-.wrapper .form-box {
-    width: 450px;
-    padding: 40px;
-}
-
-.wrapper .form-box.login {
-    position: relative;
-    transition: none;
-}
-
-.wrapper .form-box.register {
-    position: relative;
-    transition: none;
+    padding: 20px;
+    box-sizing: border-box; /* Include padding in width calculation */
 }
 
 form h1 {
-    font-size: 36px;
+    font-size: 2.25rem; /* Responsive font size */
     text-align: center;
+    margin-bottom: 20px;
 }
 
-.login form .input-box {
+.input-box {
     position: relative;
     width: 100%;
     margin-bottom: 20px;
 }
 
-.register form .input-box {
-    position: relative;
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.register .input-box input {
+.input-box input {
     width: 100%;
     background: transparent;
-    border: none;
-    outline: none;
     border: 2px solid #27ada6;
     border-radius: 40px;
-    font-size: 16px;
+    font-size: 1rem; /* Responsive font size */
     color: #98A2B3;
     padding: 20px 45px 20px 20px;
-}
-
-.login .input-box input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    border: 2px solid #27ada6;
-    border-radius: 40px;
-    font-size: 16px;
-    color: #98A2B3;
-    padding: 20px 45px 20px 20px;
+    box-sizing: border-box;
 }
 
 .input-box input::placeholder {
@@ -81,15 +52,15 @@ form h1 {
     right: 20px;
     top: 50%;
     transform: translate(0, -50%);
-    font-size: 16px;
+    font-size: 1rem; /* Responsive icon size */
     color: #27ada6;
 }
 
-form .remember-forgot {
+.remember-forgot {
     display: flex;
     justify-content: space-between;
-    font-size: 14.5px;
-    margin: -15px 0 15px;
+    font-size: 0.9rem; /* Responsive font size */
+    margin: 10px 0;
     color: #98A2B3;
 }
 
@@ -107,26 +78,25 @@ form .remember-forgot {
     color: #27ada6;
 }
 
-form button {
+button {
     width: 100%;
     height: 45px;
     background: #27ada6;
     border: none;
-    outline: none;
-    border-radius: 40px;
+    border-radius: 40px!important;
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1rem; /* Responsive font size */
     color: #fff;
     font-weight: 700;
 }
 
-form button:hover {
-    background: #27ada6;
+button:hover {
+    background: #1f8c8b; /* Slightly darker shade on hover */
 }
 
-form .register-link {
-    font-size: 14.5px;
+.register-link {
+    font-size: 0.9rem; /* Responsive font size */
     text-align: center;
     margin: 20px 0 15px;
     color: #98A2B3;
@@ -143,13 +113,74 @@ form .register-link {
     text-decoration: underline;
 }
 
-
-
 .error-message {
     color: red;
-   padding-left: 20px;
-   margin-top: 5px;
+    padding-left: 20px;
+    margin-top: 5px;
     text-align: left;
     width: 100%;
 }
 
+/* Responsive styles */
+@media (max-width: 768px) {
+    .wrapper {
+        padding: 10px; /* Adjust padding for medium screens */
+    }
+
+    .login-form {
+        padding: 20px; /* Adjust padding for medium screens */
+        border-radius: 20px;
+    }
+
+    form h1 {
+        font-size: 1.75rem; /* Smaller font size for medium screens */
+    }
+
+    .input-box input {
+        font-size: 0.875rem; /* Smaller font size for medium screens */
+        padding: 15px 30px 15px 15px;
+    }
+
+    button {
+        font-size: 0.875rem; /* Smaller font size for medium screens */
+    }
+
+    .remember-forgot {
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 0.875rem; /* Smaller font size for medium screens */
+    }
+
+    .remember-forgot a {
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .wrapper {
+        padding: 5px; /* Adjust padding for small screens */
+    }
+
+    .login-form {
+        padding: 15px; /* Adjust padding for small screens */
+        border-radius: 10px;
+    }
+
+    form h1 {
+        font-size: 1.5rem; /* Smaller font size for small screens */
+    }
+
+    .input-box input {
+        font-size: 0.75rem; /* Smaller font size for small screens */
+        padding: 10px 20px 10px 10px;
+    }
+
+    button {
+        height: 40px;
+        font-size: 0.75rem; /* Smaller font size for small screens */
+    }
+
+    .register-link {
+        font-size: 0.75rem; /* Smaller font size for small screens */
+    }
+}

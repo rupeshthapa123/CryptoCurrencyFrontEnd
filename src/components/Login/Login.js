@@ -28,7 +28,8 @@ function Login() {
         setErrors(validationErrors);
 
         if (validationErrors.email === "" && validationErrors.password === "") {
-            console.log(values)
+            console.log({ email: values.email });
+
             axios.post('http://localhost:5000/login', values)
             .then(res => {
                 if (res.data.access_token) { 

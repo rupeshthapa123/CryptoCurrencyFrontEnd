@@ -1,82 +1,85 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
 .main-content {
-  
   padding: 20px;
   margin-left: 220px; /* Adjust sidebar width */
-  
-
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+}
+.filter-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.filter-button {
+  background-color: #1c2841;
+  border-radius: 20px !important;
 }
 
-
-.filter-button{
- 
- background-color:  #1c2841;
- border-radius: 20px!important;
-
+.filter-button:hover {
+  border-radius: 20px !important;
 }
 
-.filter-button:hover{
-  border-radius: 20px!important;
-}
-.main-content .toggle-button{
+.main-content .toggle-button {
   color: #7c8dbb;
-  padding-right:30px;
+  padding-right: 30px;
   padding-left: 30px;
-  font-size: 13px!important;
+  font-size: 13px !important;
   font-weight: bold;
-  border-bottom: none!important;
-  
+  border-bottom: none !important;
 }
 
-.main-content .toggle-button:hover{
+.main-content .toggle-button:hover {
   color: #27ada6;
-  background:  #1F1E5A!important  ;
-  border-radius: 20px!important;
+  background: #1f1e5a !important;
+  border-radius: 20px !important;
 }
 
 .nav-icon {
   margin-right: 8px; /* Space between icon and text */
- 
 }
 
-.table-data{
+.table-data {
   background: #000929;
-  color: #fff!important;
-  box-shadow: -2px  2px #27ada6;
-  border: none!important;
-  border-radius: 20px!important;
-  
-  
+  color: #fff !important;
+  box-shadow: -2px 2px #27ada6;
+  border: none !important;
+  border-radius: 20px !important;
 }
+
 
 
 .css-ueukts-MuiButtonBase-root-MuiToggleButton-root.Mui-selected {
-  color: #27ada6!important;
- 
+  color: #27ada6 !important;
 }
 
-
-.css-n3fyjk-MuiDataGrid-root .MuiDataGrid-container--top [role=row], .css-n3fyjk-MuiDataGrid-root .MuiDataGrid-container--bottom [role=row] {
-  background: #1c2841!important;
-  color: #7c8dbb  ;
+.css-n3fyjk-MuiDataGrid-root .MuiDataGrid-container--top [role=row],
+.css-n3fyjk-MuiDataGrid-root .MuiDataGrid-container--bottom [role=row] {
+  background: #1c2841 !important;
+  color: #7c8dbb;
   border-radius: 8px;
-  
 }
 
-.css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root{
-  color: #fff!important;
+.css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root {
+  color: #1c2841 !important;
 }
 
 .css-rtrcn9-MuiTablePagination-root {
-  
-  color: #fff!important;
-  
+  color: #1c2841 !important;
 }
-.css-pqjvzy-MuiSvgIcon-root-MuiSelect-icon{
-  color: #fff!important;
+
+.css-pqjvzy-MuiSvgIcon-root-MuiSelect-icon {
+  color: #fff !important;
 }
 
 .table-data .MuiDataGrid-row {
-  border-bottom: 1px solid #7c8dbb ; /* Change this color to whatever you like */
+  border-bottom: 1px solid #7c8dbb; /* Change this color to whatever you like */
 }
 
 /* Style the scrollbar */
@@ -99,13 +102,14 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555; /* color of the scrollbar handle on hover */
 }
+
 .buffering-screen {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #1F1E5A;
+  background-color: #1f1e5a;
 }
 
 .spinner {
@@ -119,10 +123,10 @@
 
 @keyframes spin {
   0% {
-      transform: rotate(0deg);
+    transform: rotate(0deg);
   }
   100% {
-      transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
@@ -130,4 +134,122 @@ p {
   margin-top: 10px;
   font-size: 16px;
   color: #fff;
+}
+
+/* Dashboard.css */
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  width: 250px;
+  margin-left: auto; /* Push search bar to the right */
+}
+
+.search-bar input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  color: #fff;
+  background-color: #2D3356;
+}
+
+.search-bar input::placeholder {
+  color: #999;
+}
+
+.icon {
+  margin-left: -30px; /* Adjust based on icon size */
+  color: #27ada6;
+}
+.mobile-only{
+  display: none!important;
+}
+
+.css-1akuw9y-MuiDataGrid-overlayWrapperInner {
+    background: #fff;
+}
+
+@media (max-width: 767px) {
+  .desktop-only{
+    display: none!important;
+  }
+  .mobile-only{
+    display: block!important;
+  }
+  .main-content .toggle-button {
+    color: #7c8dbb;
+    padding-right: 10px;
+    padding-left: 10px;
+    font-size: 11px !important;
+    font-weight: normal;
+    border-bottom: none !important;
+  }
+  .filter-button {
+    background-color: #1c2841;
+    border-radius: none !important;
+  }
+  
+  .filter-button:hover {
+    border-radius: none !important;
+  }
+  .fixed-bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff; /* Adjust as needed */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Optional for shadow effect */
+    z-index: 1000; /* Ensure it stays on top */
+    padding: 10px; /* Adjust padding as needed */
+  }
+  .main-content{
+    padding: 0;
+    margin-left: 0;
+  }
+  .filter-container {
+    display: flex; /* Show filter container on mobile devices */
+    flex-direction: column;
+    position: fixed;
+    bottom: 0;
+    
+    background: white;
+    padding: 10px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .filter-button {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  
+
+  .search-bar input {
+    width: calc(100% - 30px); /* Adjust to fit the input and icon */
+  }
+  
+  .search-bar {
+    flex: 1;
+  }
+  .search-bar .icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .search-button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
 }
