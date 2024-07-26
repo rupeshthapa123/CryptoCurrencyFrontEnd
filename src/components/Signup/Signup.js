@@ -49,7 +49,7 @@ function Signup() {
             console.log("Is submitting:", isSubmitting);
             if (Object.keys(errors).every((key) => errors[key] === '')) {
                 console.log("No validation errors, proceeding with API request");
-                axios.post('http://localhost:5000/signup', values)
+                axios.post('http://127.0.0.1:5000/signup', values)
                     .then(res => {
                         console.log("Signup successful", res);
                         navigate('/');

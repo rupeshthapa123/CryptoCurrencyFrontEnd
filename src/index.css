@@ -8,6 +8,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #100c08!important;
   overflow-x: hidden;
+  height: 100vh;
 }
 
 code {

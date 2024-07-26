@@ -10,28 +10,27 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { FaHome, FaChartLine, FaArrowUp, FaArrowCircleUp, FaSearch } from 'react-icons/fa';
 import './Dashboard.css';
 
+
 const numberWithCommas = (number) => {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
 const Dashboard = () => {
   const [rows, setRows] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [filteredKey, setFilteredKey] = useState("top-volume");
   const [filteredRows, setFilteredRows] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [lastRefreshTime, setLastRefreshTime] = useState(null);
-  const [elapsedTime, setElapsedTime] = useState("0s");
-  const [counterVisible, setCounterVisible] = useState(false);
+  const [countdown, setCountdown] = useState(10);
 
   useEffect(() => {
     fetchData();
-    const intervalId = setInterval(fetchData, 10000); // Refresh data every 10 seconds
-    const timerId = setInterval(updateElapsedTime, 1000); // Update elapsed time every second
-
+    const intervalId = setInterval(fetchData, 10000);
+    const countdownId = setInterval(updateCountdown, 1000);
     return () => {
-      clearInterval(intervalId); // Clear the data fetch interval on component unmount
-      clearInterval(timerId); // Clear the elapsed time timer on component unmount
+      clearInterval(intervalId);
+      clearInterval(countdownId);
     };
   }, []);
 
@@ -40,10 +39,11 @@ const Dashboard = () => {
   }, [rows, filteredKey, searchQuery]);
 
   const fetchData = async () => {
+    setLoading(true);
+    setCountdown(10);
     try {
-      setCounterVisible(true); // Show counter while loading data
       const accessToken = localStorage.getItem('accessToken');
-      const response = await axios.get('http://localhost:5000/top_coins_alldata', {
+      const response = await axios.get('http://127.0.0.1:5000/top_coins_alldata', {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }
@@ -60,18 +60,16 @@ const Dashboard = () => {
           low: item.low,
           volume_h24: item.volume && item.volume.h24 ? item.volume.h24 : 0,
           percent_change: calculatePercentageChange(item),
-          base_address: item.base_address // Add base_address here
+          base_address: item.base_address
         }));
 
         setRows(newData);
-        setLoading(false);
-        setLastRefreshTime(new Date()); // Update the last refresh time
+        setLastRefreshTime(new Date());
       }
     } catch (error) {
       console.error('Error fetching data:', error);
-      setLoading(false);
     } finally {
-      setCounterVisible(false); // Hide counter once loading is done
+      setLoading(false);
     }
   };
 
@@ -115,11 +113,9 @@ const Dashboard = () => {
     setSearchQuery(query);
   };
 
-  const updateElapsedTime = () => {
-    if (lastRefreshTime) {
-      const now = new Date();
-      const diffInSeconds = Math.floor((now - lastRefreshTime) / 1000);
-      setElapsedTime(`${diffInSeconds}s`);
+  const updateCountdown = () => {
+    if (countdown > 0) {
+      setCountdown(prevCountdown => prevCountdown - 1);
     }
   };
 
@@ -189,17 +185,8 @@ const Dashboard = () => {
         return <span style={{ color }}>{formattedValue}</span>;
       },
     },
+    
   ];
-
-  if (loading || counterVisible) {
-    return (
-      <div className="buffering-screen">
-        <div className="spinner"></div>
-        <p>Loading...</p>
-        {counterVisible && <p>Refreshing in {elapsedTime}</p>} {/* Show counter while loading */}
-      </div>
-    );
-  }
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -214,7 +201,7 @@ const Dashboard = () => {
               onChange={handleFilter}
               aria-label="filter options"
             >
-              <ToggleButton className='toggle-button' value="top-volume" >
+              <ToggleButton className='toggle-button' value="top-volume">
                 <FaArrowCircleUp className="nav-icon" />
                 Top Volume
               </ToggleButton>
@@ -226,7 +213,7 @@ const Dashboard = () => {
                 <FaChartLine className="nav-icon" />
                 Trending
               </ToggleButton>
-              <ToggleButton className='toggle-button' value="ath-discovery" >
+              <ToggleButton className='toggle-button' value="ath-discovery">
                 <FaArrowUp className="nav-icon" />
                 ATH Discovery
               </ToggleButton>
@@ -238,18 +225,26 @@ const Dashboard = () => {
                 placeholder="Search base currency..."
                 value={searchQuery}
                 onChange={(e) => handleSearch(e.target.value)} />
-                <FaSearch className="icon" />
+              <FaSearch className="icon" />
             </div>
           </Box>
 
-          <div style={{ height: 520 }}>
-            <DataGrid disableColumnSorting
-              className='table-data'
-              rows={filteredRows}
-              columns={columns}
-              pageSize={5}
-              rowsPerPageOptions={[5]}
-            />
+          <div className="table-container">
+            <Box sx={{ height: '80%', position: 'relative' }}>
+              {loading && (
+                <div className="loading-overlay">
+                  <div className="loading-spinner"></div>
+                  <p>Refreshing in {countdown} seconds</p>
+                </div>
+              )}
+              <DataGrid disableColumnSorting
+                className='table-data'
+                rows={filteredRows}
+                columns={columns}
+                pageSize={5}
+                rowsPerPageOptions={[5]}
+              />
+            </Box>
           </div>
 
           <Box
@@ -264,15 +259,6 @@ const Dashboard = () => {
             }}
             className="fixed-bottom-bar mobile-only"
           >
-            <div className="search-bar">
-              <input
-                type="text"
-                placeholder="Search base currency..."
-                value={searchQuery}
-                onChange={(e) => handleSearch(e.target.value)}
-              />
-              <FaSearch className="icon" />
-            </div>
             <ToggleButtonGroup
               className='filter-button'
               value={filteredKey}
@@ -294,13 +280,13 @@ const Dashboard = () => {
               </ToggleButton>
               <ToggleButton className='toggle-button' value="ath-discovery">
                 <FaArrowUp className="nav-icon" />
-                ATH Discovery
+                ATH 
               </ToggleButton>
             </ToggleButtonGroup>
           </Box>
-          <Box sx={{ mt: 2 }}>
-            <p>Last refresh: {elapsedTime}</p>
-          </Box>
+          {/* <Box sx={{ mt: 2 }}>
+            <p>Last refresh: {lastRefreshTime ? lastRefreshTime.toLocaleTimeString() : 'N/A'}</p>
+          </Box> */}
         </Box>
       </Box>
     </Box>

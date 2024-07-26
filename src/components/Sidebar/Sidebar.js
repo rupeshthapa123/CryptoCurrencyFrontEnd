@@ -1,8 +1,9 @@
+// Sidebar.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate, NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
-import { FaHome, FaChartLine, FaArrowUp, FaArrowCircleUp, FaBars, FaSignOutAlt } from 'react-icons/fa';
+import { FaHome, FaChartLine, FaBars, FaSignOutAlt } from 'react-icons/fa';
 import './Sidebar.css';
 import logo from '../../assets/images/logo.png';
 
@@ -13,23 +14,14 @@ const Sidebar = () => {
   const handleLogout = async () => {
     try {
       const accessToken = localStorage.getItem('accessToken');
-      console.log("Access Token:", accessToken);
-
-      // Make an API call to logout
       const response = await axios.post('http://127.0.0.1:5000/logout', null, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       });
 
-      console.log("Logout Response:", response);
-
-      // Clear local storage and redirect to login page
       localStorage.removeItem('accessToken');
-      console.log("Access Token removed from local storage");
-
       navigate('/');
-      console.log("Navigated to login page");
     } catch (error) {
       console.error("Failed to logout. Please try again later.", error);
       alert("Failed to logout. Please try again later.");
@@ -58,12 +50,12 @@ const Sidebar = () => {
           <Nav.Link as={NavLink} to="/analytics" onClick={toggleSidebar}>
             <FaChartLine className="nav-icon" /> Analytics
           </Nav.Link>
-          <Nav.Link as={NavLink} to="/TopGainer" onClick={toggleSidebar}>
+          {/* <Nav.Link as={NavLink} to="/TopGainers" onClick={toggleSidebar}>
             <FaArrowUp className="nav-icon" /> Top Gainer
           </Nav.Link>
           <Nav.Link as={NavLink} to="/TopVolume" onClick={toggleSidebar}>
             <FaArrowCircleUp className="nav-icon" /> Top Volume
-          </Nav.Link>
+          </Nav.Link> */}
           <div className="logout-container">
             <button onClick={handleLogout} className="logout-button mobile-only">
               <FaSignOutAlt className="logout-icon" />

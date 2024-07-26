@@ -128,10 +128,20 @@ button:hover {
     }
 
     .login-form {
+        height: 100vh;
         padding: 20px; /* Adjust padding for medium screens */
         border-radius: 20px;
     }
-
+    .form-box.login{
+        text-align: center;
+        justify-content: center;
+        padding-top: 50%;
+    }
+    .form-box.register{
+        text-align: center;
+        justify-content: center;
+        padding-top: 50%;
+    }
     form h1 {
         font-size: 1.75rem; /* Smaller font size for medium screens */
     }
