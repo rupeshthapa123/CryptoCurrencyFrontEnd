@@ -39,7 +39,7 @@ const Dashboard = () => {
   }, [rows, filteredKey, searchQuery]);
 
   const fetchData = async () => {
-    setLoading(true);
+    setLoading(false);
     setCountdown(10);
     try {
       const accessToken = localStorage.getItem('accessToken');
